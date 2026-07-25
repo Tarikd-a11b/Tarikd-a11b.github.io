@@ -259,8 +259,22 @@ footer .fin a{ color:var(--muted); }
 .cs-txt h3{ font-family:var(--serif-d); font-weight:600; font-size:clamp(1.25rem,2.4vw,1.55rem); letter-spacing:-0.01em; margin:0 0 10px; line-height:1.2; }
 .cs-txt p{ color:var(--ink-2); font-size:1.04rem; line-height:1.6; margin:0; }
 .cs-close{ border-top:2px solid var(--ink); margin-top:clamp(40px,6vw,64px); padding-top:26px; }
-.cs-close p{ font-family:var(--serif-d); font-weight:500; font-size:clamp(1.3rem,2.8vw,1.85rem); line-height:1.3; letter-spacing:-0.01em; max-width:40ch; margin:0; }
+.cs-close p{ font-family:var(--serif-d); font-weight:500; font-size:clamp(1.3rem,2.8vw,1.85rem); line-height:1.3; letter-spacing:-0.01em; max-width:44ch; margin:0; }
 .cs-close .em{ color:var(--accent); }
+.cs-prose{ max-width:70ch; }
+.cs-prose p{ color:var(--ink-2); font-size:1.06rem; line-height:1.65; margin:0 0 16px; }
+.cs-prose code{ font-family:var(--mono); font-size:0.88em; background:var(--panel); padding:1px 6px; border-radius:4px; color:var(--accent-2); }
+.cs-table-wrap{ overflow-x:auto; }
+.cs-table{ width:100%; border-collapse:collapse; font-size:0.95rem; }
+.cs-table th,.cs-table td{ text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+.cs-table thead th{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border-bottom:2px solid var(--ink); }
+.cs-table td:first-child{ font-family:var(--mono); font-size:0.85rem; color:var(--accent); white-space:nowrap; }
+.cs-table td:nth-child(3){ font-family:var(--mono); font-size:0.8rem; color:var(--muted); }
+.cs-list{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px 24px; }
+@media (max-width:640px){ .cs-list{ grid-template-columns:1fr; } }
+.cs-list li{ position:relative; padding-left:20px; color:var(--ink-2); font-size:1rem; line-height:1.5; }
+.cs-list li::before{ content:"▸"; position:absolute; left:0; color:var(--accent); }
+.cs-list li b{ font-weight:600; color:var(--ink); }
 
 /* lightbox */
 .lb{ position:fixed; inset:0; z-index:100; display:none; background:color-mix(in srgb, var(--paper) 40%, rgba(10,15,20,0.9)); backdrop-filter:blur(9px); align-items:center; justify-content:center; padding:32px; }
@@ -503,6 +517,69 @@ footer .fin a{ color:var(--muted); }
     </div>
   </section>
 
+  <!-- ============ VAKA ÇALIŞMASI: HASTANE ============ -->
+  <section class="view" data-view="hastane">
+    <div class="wrap page">
+      <a class="cs-back" href="#/projeler/dev">← projelere dön</a>
+      <div class="cs-hero">
+        <span class="skey">Vaka Çalışması · C# · WinForms</span>
+        <h1>Hastane Yönetim Sistemi</h1>
+        <p class="cs-sub">Rol tabanlı bir masaüstü hastane otomasyonu: hasta, doktor ve sekreter için ayrı iş akışları; SQL Server LocalDB üzerinde ADO.NET ile randevu ve kayıt yönetimi.</p>
+        <div class="cs-meta">
+          <span>Araçlar: C# · .NET 4.8 · WinForms · LocalDB</span>
+          <a href="https://github.com/Tarikd-a11b/HASTANE-Proje" target="_blank" rel="noopener">Kod ↗</a>
+          <a href="https://github.com/Tarikd-a11b/HASTANE-Proje/releases/latest" target="_blank" rel="noopener">İndir ↓</a>
+        </div>
+      </div>
+
+      <div class="cs-intro">
+        <div class="box"><h4>Amaç</h4><p>Hasta kayıtları, doktor/branş yönetimi ve randevu süreçlerini tek bir masaüstü uygulamada toplayan rol tabanlı bir yönetim yazılımı. Dağınık/kağıt kayıt yerine merkezî ve tutarlı veri yönetimi hedefler.</p></div>
+        <div class="box"><h4>Genel Bakış</h4><p>C# · .NET Framework 4.8 · WinForms; SQL Server LocalDB (ADO.NET). Çok katmanlı mimari ve üç kullanıcı rolü: Hasta · Doktor · Sekreter.</p></div>
+        <div class="box"><h4>Referans</h4><p>Murat Yücedağ’ın Udemy’deki “Uygulama Geliştirerek C# Öğrenin: A’dan Z’ye” eğitim seti referans alınarak geliştirilmiştir.</p></div>
+      </div>
+
+      <div class="cs-sech"><div class="k">01 / Mimari</div><h3>Nasıl kurgulandı?</h3></div>
+      <div class="cs-prose">
+        <p><b>Üç katmanlı bir yapı benimsenmiştir:</b> (1) <b>Sunum</b> — her ekran ayrı bir WinForms <code>Form</code>’u; (2) <b>Veri erişim</b> — tüm formların veritabanı bağlantısını tek noktadan aldığı merkezî <code>sqlbaglanti</code> sınıfı; (3) <b>Veri</b> — <code>HastaneProje</code> veritabanı (6 tablo).</p>
+        <p>Veri erişimi <b>ADO.NET</b> ile yapılır: tekil okumalarda <code>SqlDataReader</code>, grid’lere toplu veri aktarımında <code>SqlDataAdapter</code> + <code>DataTable</code>. Tüm sorgular <b>parametrelidir</b> (<code>@p1</code>, <code>@r1</code>…), bu da SQL injection’a karşı koruma ve tip güvenliği sağlar.</p>
+        <p><b>Taşınabilirlik:</b> veritabanı tek bir <code>.mdf</code> dosyası olarak uygulamayla gelir; ilk açılışta yazılabilir kullanıcı klasörüne (<code>%LOCALAPPDATA%</code>) kopyalanıp LocalDB <code>AttachDbFilename</code> ile bağlanır — harici bir SQL Server kurulumu gerektirmeden her Windows makinesinde çalışır.</p>
+      </div>
+
+      <div class="cs-sech"><div class="k">02 / Ekranlar & İş Akışları</div><h3>Uygulama turu</h3></div>
+      <div id="cs-hastane-list"></div>
+
+      <div class="cs-sech"><div class="k">03 / Veri Modeli</div><h3>Veritabanı yapısı</h3></div>
+      <div class="cs-table-wrap">
+        <table class="cs-table">
+          <thead><tr><th>Tablo</th><th>Amaç</th><th>Başlıca kolonlar</th></tr></thead>
+          <tbody>
+            <tr><td>Tbl_Hastalar</td><td>Hasta kayıtları</td><td>HastaId (PK), Ad, Soyad, Tc, Telefon, Sifre, Cinsiyet</td></tr>
+            <tr><td>Tbl_Doktorlar</td><td>Doktor kayıtları</td><td>DoktorId (PK), Ad, Soyad, Brans, Tc, Sifre</td></tr>
+            <tr><td>Tbl_Sekreter</td><td>Sekreter/yönetici hesapları</td><td>SekreterId (PK), AdSoyad, Tc, Sifre</td></tr>
+            <tr><td>Tbl_Branslar</td><td>Poliklinik/branş listesi</td><td>Bransid (PK), BransAd</td></tr>
+            <tr><td>Tbl_Randevular</td><td>Randevu kayıtları</td><td>RandevuID (PK), Tarih, Saat, Brans, Doktor, Durum, HastaTc, HastaSikayet</td></tr>
+            <tr><td>Tbl_Duyurular</td><td>Duyurular</td><td>DuyuruId (PK), Duyurular</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sec-note" style="margin-top:16px">Doktorlar bir branşa bağlıdır; randevular branş + doktor + (alındığında) hasta bilgisini taşır.</p>
+
+      <div class="cs-sech"><div class="k">04 / Öne Çıkanlar</div><h3>Teknik özellikler</h3></div>
+      <ul class="cs-list">
+        <li><b>Rol tabanlı mimari</b> — üç kullanıcı tipi için ayrı iş akışı ve yetki.</li>
+        <li><b>Merkezî bağlantı yönetimi</b> — tek <code>sqlbaglanti</code> sınıfı.</li>
+        <li><b>Parametreli ADO.NET</b> — güvenli, tip-uyumlu sorgular.</li>
+        <li><b>Grid tabanlı listeleme</b> — <code>DataGridView</code> + <code>SqlDataAdapter</code>.</li>
+        <li><b>Taşınabilir dağıtım</b> — LocalDB + <code>AttachDbFilename</code>, kurulumsuz.</li>
+        <li><b>Nesne yönelimli yapı</b> — her ekran ayrı, yeniden kullanılabilir bileşenler.</li>
+      </ul>
+
+      <div class="cs-close">
+        <p>Küçük ölçekli bir öğrenme projesi olsa da; <span class="em">rol tabanlı yetkilendirme, merkezî veri erişimi ve taşınabilir dağıtım gibi gerçek dünya yazılım kalıplarını uçtan uca uygular.</span></p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -548,7 +625,7 @@ footer .fin a{ color:var(--muted); }
     { t:'Bursa Kültürel & Tarihi Miras Analizi', repo:'Analysis-of-Bursa-s-Cultural-and-Historical-Heritage', cat:['bi'],
       d:'Bursa’nın turistik ve tarihi değerlerinin ArcGIS Pro ile mekânsal (CBS) analizi; sonuçlar interaktif bir ArcGIS StoryMap ile sunuldu.', langs:['ArcGIS'], status:'done', demo:'https://storymaps.arcgis.com/stories/4d02b819fc304a2fb3204530e3c5c82d', demoLabel:'storymap' },
     { t:'Hastane Yönetim Sistemi', repo:'HASTANE-Proje', cat:['dev'],
-      d:'C# & .NET WinForms ile çok katmanlı mimaride masaüstü uygulaması; rol tabanlı yetkilendirme ve SQL Server LocalDB üzerinde ADO.NET ile gerçek zamanlı CRUD. İndirilebilir Windows kurulumu mevcut.', langs:['C#','SQL'], status:'done', demo:'https://github.com/Tarikd-a11b/HASTANE-Proje/releases/latest', demoLabel:'indir' }
+      d:'C# & .NET WinForms ile çok katmanlı mimaride masaüstü uygulaması; rol tabanlı yetkilendirme ve SQL Server LocalDB üzerinde ADO.NET ile gerçek zamanlı CRUD. İndirilebilir Windows kurulumu mevcut.', langs:['C#','SQL'], status:'done', cs:'hastane', demo:'https://github.com/Tarikd-a11b/HASTANE-Proje/releases/latest', demoLabel:'indir' }
   ];
   var STATUS={ live:{cls:'live',txt:'canlı'}, dev:{cls:'dev',txt:'geliştiriliyor'}, done:{cls:'done',txt:'tamamlandı'} };
   var COVER={
@@ -637,6 +714,25 @@ footer .fin a{ color:var(--muted); }
   }
   renderCaseStudy();
 
+  // ---------- Hastane case study walkthrough ----------
+  var HASTANE_WALK = [
+    { i:0, t:'Rol tabanlı giriş', d:'Uygulama, kullanıcıyı üç rolden birine yönlendiren bir karşılama ekranıyla açılır: Hasta, Doktor, Sekreter. Her rol kendi giriş ekranına ve yetkilerine uygun panele ulaşır — rol tabanlı yetkilendirmenin temeli budur.' },
+    { i:1, t:'Sekreter: doktor yönetimi', d:'Sekreter, sistemin yönetim rolüdür; doktorları ekler, siler, günceller ve branşlara atar. Doktor listesi bir DataGridView’de anlık görüntülenir (SqlDataAdapter ile beslenir).' },
+    { i:2, t:'Branş yönetimi', d:'Poliklinik/branşlar buradan yönetilir (ekle / sil / güncelle). Doktorlar bir branşa bağlı olduğundan, branş listesi randevu ve doktor atama akışlarının temelini oluşturur.' },
+    { i:3, t:'Randevu yaşam döngüsü', d:'Üç rolün kesiştiği ana akış: Sekreter boş bir randevu oluşturur (Durum = 0); Hasta uygun randevuyu seçip alır (Durum = 1, TC ve şikâyet eklenir); Doktor kendi randevularını görür. Durum alanı, randevunun boş/dolu geçişini yöneten basit bir durum makinesidir.' },
+    { i:4, t:'Hasta kaydı ve girişi', d:'Hastalar kendi kayıtlarını oluşturur (ad, soyad, TC, telefon, şifre, cinsiyet), TC + şifre ile giriş yapar ve bilgilerini güncelleyebilir. Tüm yazma işlemleri parametreli sorgularla gerçekleştirilir.' },
+    { i:6, t:'Duyurular', d:'Sekreterin yayınladığı duyurular, tüm kullanıcıların gördüğü bir bilgi akışı sağlar; sistem sadece işlem değil, bilgilendirme de yapar.' }
+  ];
+  function renderHastaneCase(){
+    var g=GALLERIES['HASTANE-Proje']; var el=document.getElementById('cs-hastane-list'); if(!el||!g) return;
+    el.innerHTML = HASTANE_WALK.map(function(a){
+      return '<div class="cs-item"><figure class="cs-fig"><img src="'+g[a.i].s+'" alt="'+esc(a.t)+'" loading="lazy" data-hi="'+a.i+'"><figcaption>'+esc(g[a.i].c)+'</figcaption></figure>'+
+        '<div class="cs-txt"><h3>'+esc(a.t)+'</h3><p>'+a.d+'</p></div></div>';
+    }).join('');
+    el.querySelectorAll('.cs-fig img').forEach(function(img){ img.addEventListener('click',function(){ openArr(g, parseInt(img.getAttribute('data-hi'),10)); }); });
+  }
+  renderHastaneCase();
+
   document.getElementById('grid').innerHTML = PROJECTS.map(card).join('');
   document.getElementById('featured-grid').innerHTML = PROJECTS.filter(function(p){return p.featured;}).slice(0,4).map(card).join('');
 
@@ -702,7 +798,7 @@ footer .fin a{ color:var(--muted); }
   burger.addEventListener('click',function(e){ e.stopPropagation(); var o=hnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o?'true':'false'); });
 
   // ---------- router ----------
-  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage'];
+  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane'];
   function showView(v){
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('active'); });
     var el=document.querySelector('.view[data-view="'+v+'"]'); if(!el){ el=document.querySelector('.view[data-view="home"]'); v='home'; }
