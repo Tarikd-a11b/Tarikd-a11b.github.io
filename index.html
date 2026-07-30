@@ -615,54 +615,66 @@ footer .fin a{ color:var(--muted); }
     </div>
   </section>
 
-  <!-- ============ TNC-ODA (case study) ============ -->
-  <section class="view" data-view="tnc-oda">
+  <!-- ============ TNC-AUTOCAD (case study) ============ -->
+  <section class="view" data-view="tnc-autocad">
     <div class="wrap page">
       <a class="cs-back" href="#/projeler/dev">← projelere dön</a>
       <div class="cs-hero">
-        <span class="skey">Vaka Çalışması · AutoCAD · Blender</span>
-        <h1>Çalışma Odası: 2B Teknik Çizimden 3B Modele</h1>
-        <p class="cs-sub">TNC Group stajı kapsamında aynı 15,5 m²'lik çalışma odasının hem AutoCAD'de teknik-çizim standartlarıyla bir plan olarak, hem de Blender'da 3B izometrik bir sahne olarak, iki ayrı disiplinle üretilmesi.</p>
+        <span class="skey">Vaka Çalışması · AutoCAD</span>
+        <h1>Çalışma Odası: 2B Teknik Çizim</h1>
+        <p class="cs-sub">TNC Group stajı kapsamında bir çalışma odası planının AutoCAD'de teknik-çizim standartlarına uygun olarak hazırlanması.</p>
         <div class="cs-meta">
-          <span>Araçlar: AutoCAD · Blender · Geometry Nodes · EEVEE</span>
-          <a href="https://github.com/Tarikd-a11b/TNC-Group-Staj/tree/master/AutoCAD" target="_blank" rel="noopener">AutoCAD dosyası ↗</a>
-          <a href="https://github.com/Tarikd-a11b/TNC-Group-Staj/tree/master/Blender" target="_blank" rel="noopener">Blender dosyası ↗</a>
+          <span>Araçlar: AutoCAD</span>
+          <a href="https://github.com/Tarikd-a11b/TNC-Group-Staj/tree/master/AutoCAD" target="_blank" rel="noopener">Dosya ↗</a>
         </div>
       </div>
 
       <div class="cs-intro">
-        <div class="box"><h4>Amaç</h4><p>TNC Group stajının iki paralel teslimi: aynı çalışma odasının hem 2B'de teknik çizim standartlarıyla bir plan olarak, hem de 3B'de gerçekçi bir sahne olarak modellenmesi.</p></div>
-        <div class="box"><h4>Yönerge</h4><p>Her iki teslim de şirketin ayrı bir yönerge (prosedür) PDF'iyle tanımlandı: "AutoCAD Ders Yönergesi" ve "Blender Proje Yönergesi" — belirli tekniklerin (blok, tarama, ölçü stili; array, bevel, solidify, subdivision) kullanılması açıkça şart koşuldu.</p></div>
-        <div class="box"><h4>Genel Bakış</h4><p>2B tarafta AutoCAD ile katman/blok/tarama/ölçü disiplini; 3B tarafta Blender'da modifier tabanlı prosedürel modelleme ve ortografik (izometrik) render.</p></div>
+        <div class="box"><h4>Amaç</h4><p>Bir çalışma odasının duvar, mobilya ve ölçü bilgilerini içeren, teknik çizim standartlarına uygun bir 2B plan üretmek.</p></div>
+        <div class="box"><h4>Yönerge</h4><p>Şirketin "AutoCAD Ders Yönergesi" PDF'iyle tanımlandı; belirli tekniklerin (blok, tarama, ölçü stili) kullanılması ve sürecin 4 aşamada ilerlemesi şart koşuldu.</p></div>
+        <div class="box"><h4>Genel Bakış</h4><p>Katman (layer), blok (block), tarama (hatch) ve ölçü stili (dimstyle) disiplinine dayalı klasik bir AutoCAD iş akışı.</p></div>
       </div>
 
-      <div class="cs-sech"><div class="k">01 / AutoCAD</div><h3>2B teknik çizim</h3></div>
+      <div class="cs-sech"><div class="k">01 / Teknik</div><h3>Nasıl işlendi?</h3></div>
       <div id="cs-tnc-autocad"></div>
       <div class="cs-prose">
         <p>Dosya, yönergenin istediği <b>DWG 2013 (AC1027)</b> formatında bilinçli olarak kaydedildi — düz bir "kaydet" işlemi AutoCAD'i sessizce daha yeni bir sürüm formatına yükseltebiliyor. Kullanılmayan blok tanımları da temizlik amacıyla <b>purge</b> edildi.</p>
       </div>
 
-      <div class="cs-sech"><div class="k">02 / Blender</div><h3>3B izometrik model</h3></div>
+      <div class="cs-close">
+        <p>Küçük ölçekli bir öğrenme ödevi olsa da; <span class="em">katman disiplini, blok tabanlı tekrar ve tutarlı ölçülendirme</span> gibi profesyonel teknik çizim alışkanlıklarını uçtan uca uygular.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TNC-BLENDER (case study) ============ -->
+  <section class="view" data-view="tnc-blender">
+    <div class="wrap page">
+      <a class="cs-back" href="#/projeler/dev">← projelere dön</a>
+      <div class="cs-hero">
+        <span class="skey">Vaka Çalışması · Blender</span>
+        <h1>3B İzometrik Oda</h1>
+        <p class="cs-sub">TNC Group stajı kapsamında bir odanın Blender'da modifier tabanlı, prosedürel bir yaklaşımla 3B izometrik sahne olarak modellenmesi.</p>
+        <div class="cs-meta">
+          <span>Araçlar: Blender · Geometry Nodes · EEVEE</span>
+          <a href="https://github.com/Tarikd-a11b/TNC-Group-Staj/tree/master/Blender" target="_blank" rel="noopener">Dosya ↗</a>
+        </div>
+      </div>
+
+      <div class="cs-intro">
+        <div class="box"><h4>Amaç</h4><p>Bir odayı, gerçekçi malzeme ve ışıklandırmayla, izometrik bir sahne olarak 3B'de canlandırmak.</p></div>
+        <div class="box"><h4>Yönerge</h4><p>Şirketin "Blender Proje Yönergesi" PDF'iyle tanımlandı; dört modifier'ın (array, bevel, solidify, subdivision) sahnede kullanılması açıkça şart koşuldu.</p></div>
+        <div class="box"><h4>Genel Bakış</h4><p>Modifier tabanlı prosedürel modelleme, ortografik (izometrik) kamera ve EEVEE render motoru.</p></div>
+      </div>
+
+      <div class="cs-sech"><div class="k">01 / Teknik</div><h3>Nasıl işlendi?</h3></div>
       <div id="cs-tnc-blender"></div>
       <div class="cs-prose">
         <p>Sahne ~22 nesne ve 5 binin üzerinde poligonla kuruldu; <b>ortografik</b> bir kamerayla (perspektif çarpıtması olmadan gerçek izometrik görünüm için) <b>EEVEE</b> motorunda render edildi, Area ve Sun ışıkların karışımıyla aydınlatıldı. Kitapların renkleri (kırmızı/mavi/sarı/yeşil) dahil ~30 ayrı malzeme ile yüzey detayı zenginleştirildi.</p>
       </div>
 
-      <div class="cs-sech"><div class="k">03 / Karşılaştırma</div><h3>İki disiplin, tek mekân</h3></div>
-      <div class="cs-table-wrap">
-        <table class="cs-table">
-          <thead><tr><th></th><th>AutoCAD (2B)</th><th>Blender (3B)</th></tr></thead>
-          <tbody>
-            <tr><td>Çıktı</td><td>Teknik plan (DWG/PDF)</td><td>İzometrik render (PNG)</td></tr>
-            <tr><td>Tekrar eden eleman</td><td>Blok (block) + insert</td><td>Array (node tabanlı)</td></tr>
-            <tr><td>Yüzey / malzeme</td><td>Tarama (hatch) deseni</td><td>Materyal + Solidify/Subsurf</td></tr>
-            <tr><td>Standardizasyon</td><td>Ölçü stili (dimstyle)</td><td>Ortografik kamera</td></tr>
-          </tbody>
-        </table>
-      </div>
-
       <div class="cs-close">
-        <p>Aynı 15,5 m²'lik odanın iki farklı disiplinle — <span class="em">teknik çizim standartları ve prosedürel 3B modelleme</span> — ele alınması, stajın 2B/3B araç setini bir arada göstermeyi hedefleyen çift yönlü kapsamını yansıtıyor.</p>
+        <p>Küçük ölçekli bir öğrenme ödevi olsa da; <span class="em">modifier tabanlı prosedürel modelleme ve doğru kamera/ışıklandırma seçimi</span> gibi 3B üretim alışkanlıklarını uçtan uca uygular.</p>
       </div>
     </div>
   </section>
@@ -710,9 +722,9 @@ footer .fin a{ color:var(--muted); }
     { t:'Hastane Yönetim Sistemi', repo:'HASTANE-Proje', cat:['dev'],
       d:'C# & .NET WinForms ile çok katmanlı mimaride masaüstü uygulaması; rol tabanlı yetkilendirme ve SQL Server LocalDB üzerinde ADO.NET ile gerçek zamanlı CRUD. İndirilebilir Windows kurulumu mevcut.', langs:['C#','SQL'], status:'done', cs:'hastane', demo:'https://github.com/Tarikd-a11b/HASTANE-Proje/releases/latest', demoLabel:'indir' },
     { t:'TNC Staj — AutoCAD Teknik Çizim', repo:'TNC-Group-Staj/tree/master/AutoCAD', cat:['dev'],
-      d:'TNC Group stajı kapsamında 4 aşamalı işlenen bir çalışma odası planı; katman, blok, tarama ve ölçü stilleriyle teknik çizim standartlarına uygun hazırlandı.', langs:['AutoCAD'], status:'done', cs:'tnc-oda' },
+      d:'TNC Group stajı kapsamında 4 aşamalı işlenen bir çalışma odası planı; katman, blok, tarama ve ölçü stilleriyle teknik çizim standartlarına uygun hazırlandı.', langs:['AutoCAD'], status:'done', cs:'tnc-autocad' },
     { t:'TNC Staj — Blender 3B İzometrik Oda', repo:'TNC-Group-Staj/tree/master/Blender', cat:['dev'],
-      d:'Aynı çalışma odasının 3B izometrik modeli ve render’ı; array, bevel, solidify ve subdivision modifier’larıyla oluşturuldu.', langs:['Blender'], status:'done', cs:'tnc-oda' },
+      d:'Bir odanın 3B izometrik modeli ve render’ı; array, bevel, solidify ve subdivision modifier’larıyla oluşturuldu.', langs:['Blender'], status:'done', cs:'tnc-blender' },
     { t:'TNC Staj — Kitap Takip Uygulaması', repo:'TNC-Group-Staj/tree/master/Python', cat:['dev'],
       d:'Konsol tabanlı kitap takip uygulaması; ekleme, listeleme, güncelleme ve silme işlemleriyle JSON dosyasında kalıcı veri saklama.', langs:['Python'], status:'done' }
   ];
@@ -917,7 +929,7 @@ footer .fin a{ color:var(--muted); }
   burger.addEventListener('click',function(e){ e.stopPropagation(); var o=hnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o?'true':'false'); });
 
   // ---------- router ----------
-  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane','adidas','tnc-oda'];
+  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane','adidas','tnc-autocad','tnc-blender'];
   function showView(v){
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('active'); });
     var el=document.querySelector('.view[data-view="'+v+'"]'); if(!el){ el=document.querySelector('.view[data-view="home"]'); v='home'; }
