@@ -552,6 +552,48 @@ footer .fin a{ color:var(--muted); }
     </div>
   </section>
 
+  <!-- ============ VAKA ÇALIŞMASI: HUAWEI ============ -->
+  <section class="view" data-view="huawei">
+    <div class="wrap page">
+      <a class="cs-back" href="#/projeler/data">← projelere dön</a>
+      <div class="cs-hero">
+        <span class="skey">Vaka Çalışması · Python · Finansal Analiz</span>
+        <h1>Huawei: Ambargodan Zirveye — Hikaye ve Veri</h1>
+        <p class="cs-sub">ABD’nin 2019 ambargosunun Huawei’nin finansallarına etkisini 2015–2024 verisiyle inceleyen bir Python analizi — ve bunu, “seni öldürmeyen şey seni güçlendirir” anlatısıyla yüzleştiren bir okuma.</p>
+        <div class="cs-meta">
+          <span>Araçlar: Python · pandas · seaborn · scikit-learn</span>
+          <a href="https://github.com/Tarikd-a11b/Huawei-Sales-Analysis" target="_blank" rel="noopener">Kod ↗</a>
+        </div>
+      </div>
+
+      <div class="cs-intro">
+        <div class="box"><h4>Genel Çerçeve</h4><p>2015–2024 mali verileriyle (gelir, faaliyet marjı, borçlanma oranı) Huawei’nin ABD ambargosu öncesi ve sonrası durumunu karşılaştıran betimsel + tahmine dayalı bir analiz.</p></div>
+        <div class="box"><h4>Anlatı</h4><p>Yazarın kendi <a href="https://medium.com/@bilaltarikd/seni-%C3%B6ld%C3%BCrmeyen-%C5%9Fey-seni-g%C3%BC%C3%A7lendirir-huaweinin-k%C3%BCresel-ambargodan-zirveye-uzanan-hikayesi-1ca3e58c9566" target="_blank" rel="noopener">Medium yazısındaki</a> “dipten zirveye” tezini veriyle sınamak: ambargo Huawei’yi gerçekten güçlendirdi mi, yoksa hikaye mi süslüyor?</p></div>
+        <div class="box"><h4>Teknik</h4><p>pandas ile veri temizliği, korelasyon analizi, <b>Linear Regression</b> ile gelir tahmini ve <b>Monte Carlo simülasyonu</b> (10.000 senaryo) ile 2027 projeksiyonu.</p></div>
+      </div>
+
+      <div class="cs-sech"><div class="k">01 / Bulgular</div><h3>Sayılarla ambargo dönemi</h3></div>
+      <div id="cs-huawei-list"></div>
+
+      <div class="cs-sech"><div class="k">02 / Yorum</div><h3>Hikaye veriyle ne kadar örtüşüyor?</h3></div>
+      <div class="cs-prose">
+        <p><b>Gelir tarafında hikaye doğru çıkıyor:</b> 2020’deki zirveden (891,4 milyar CNY) 2021’de %28,6’lık bir düşüşle dibe vuran gelir, 2024’te 862,1 milyar CNY’ye ulaşarak zirveye sadece %3,3 uzaklıkta — üstelik 2023’ten 2024’e %22,4 büyümeyle. Gerçek bir “dipten zirveye” eğrisi bu.</p>
+        <p><b>Ama kârlılık tarafı daha karmaşık:</b> ambargo öncesi (2015–2018) ortalama faaliyet marjı %10,05 iken ambargo sonrası (2019–2024) %11,15 — yani ortalama düşmedi, hafifçe arttı. Asıl değişen <b>oynaklık</b>: marj sapması %0,99 puandan %4,37 puana, yaklaşık <b>4 katına</b> çıktı. 2021’de gelir çökerken marjın %19,1’e sıçraması (muhtemelen Honor’un elden çıkarılması gibi bir kerelik bir etkiyle) bu kırılganlığın en net örneği.</p>
+        <p class="cs-analogy">💪 <b>Nietzsche testi:</b> Veri, “seni öldürmeyen şey seni güçlendirir” tezini kısmen doğruluyor — ama “güçlenme” ortalama kârlılıkta değil, gelirin toparlanma kapasitesinde görünüyor. Buna karşılık sistem daha <b>oynak</b> hale geldi: aynı kasın daha ağır yük kaldırabilmesi gibi, ama artık her kaldırışta titremesi de artmış bir kas.</p>
+        <p><b>Ambargodan bağımsız bir disiplin:</b> Borçlanma/yükümlülük oranı 2015’te %68,0’den 2024’te %57,8’e, kesintisiz ve doğrusal biçimde geriliyor — bu düşüş ambargo çizgisiyle hiç kesişmiyor. Yani bilanço disiplini ambargoya bir tepki değil, on yıllık süreklilik gösteren ayrı bir alışkanlık.</p>
+      </div>
+
+      <div class="cs-sech"><div class="k">03 / Kritik Değerlendirme</div><h3>Verinin sınırları</h3></div>
+      <div class="cs-prose">
+        <p>Bölgesel dağılım grafiğinde bir veri temizliği izi göze çarpıyor: “Toplam” satırı pasta grafikte her yıl sabit %50 olarak görünüyor — bu, bölge bazlı yüzdelerin filtrelenmeden karıştığının işareti; bölgesel paylara bu haliyle tam güvenilmemeli. Monte Carlo aralığı da (~580–1.480 milyar CNY) bir uyarı: nokta tahmin değil bir olasılık dağılımı; ambargo sonrası artan oynaklık, yalın bir doğrusal regresyonun öngördüğü düz ~932 milyar çizgisinin gizlediği gerçek belirsizliği ortaya koyuyor. Veri kaynağı halka açık yıllık rapor özetleri olduğundan; birim ekonomisi veya Ar-Ge harcaması gibi iç kırılımlar analiz dışı kalıyor.</p>
+      </div>
+
+      <div class="cs-close">
+        <p>Özet — Gelir 2020 zirvesi <span class="em">891,4B CNY</span> → 2021 dibi <span class="em">-%28,6</span> → 2024’te zirveye <span class="em">%3,3</span> kala. Ortalama marj düşmedi, oynaklık <span class="em">4 kat</span> arttı. 2027 medyan tahmini ~960 milyar CNY (geniş belirsizlik payıyla).</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ VAKA ÇALIŞMASI: HASTANE ============ -->
   <section class="view" data-view="hastane">
     <div class="wrap page">
@@ -712,7 +754,7 @@ footer .fin a{ color:var(--muted); }
     { t:'ElectroMarkt — E-Ticaret', repo:'ElectroMarkt-Project', cat:['dev'], featured:true,
       d:'Firebase altyapılı, elektronik ürünler için geliştirilen tam kapsamlı e-ticaret web uygulaması.', langs:['HTML/JS','Firebase'], status:'live', demo:'https://tarikd-a11b.github.io/ElectroMarkt-Project/', demoLabel:'demo' },
     { t:'Huawei Satış Analizi', repo:'Huawei-Sales-Analysis', cat:['data'], featured:true,
-      d:'Ambargo öncesi ve sonrası Huawei’nin ticari durumunu inceleyen Python tabanlı analitik çalışma.', langs:['Python'], status:'done' },
+      d:'Ambargo öncesi ve sonrası Huawei’nin ticari durumunu inceleyen Python tabanlı analitik çalışma.', langs:['Python'], status:'done', cs:'huawei' },
     { t:'ABD İşgücü Piyasası & Ücret Modellemesi', repo:'Wage_Datasets_Analysis', cat:['data'], featured:true,
       d:'Orta-Atlantik işgücü piyasasında eğitim, sektörel değişim ve gelir arasındaki korelasyonların ekonometrik analizi — Acemoğlu’nun kurumsal iktisat çerçevesiyle.', langs:['R'], status:'done', cs:'wage' },
     { t:'Adidas Satış Analizi & Görselleştirme', repo:'PowerBI-Sales-Analysi', cat:['bi'], featured:true,
@@ -864,6 +906,25 @@ footer .fin a{ color:var(--muted); }
   }
   renderAdidasCase();
 
+  // ---------- Huawei case study walkthrough ----------
+  var HUAWEI_WALK = [
+    { i:0, t:'Gelir & kâr marjı ilişkisi (2015–2024)', d:'Çift eksenli grafik: hasılat 2020’de 891,4 milyar CNY’ye ulaşıp 2021’de %28,6 çöküyor, 2024’te 862,1 milyar CNY’ye (zirveye %3,3 kala) toparlanıyor. Marj ise 2021’de gelir çökerken tersine %19,1’e sıçrıyor — ilk bakışta çelişkili bu görüntü, gelir ve kârlılığın farklı dinamiklere bağlı olduğunu gösteriyor.' },
+    { i:1, t:'Gelir artışı – kâr marjı korelasyonu', d:'Yıllara göre renklendirilmiş dağılım grafiği, marj ve hasılat arasında net bir doğrusal ilişki olmadığını ortaya koyuyor; özellikle ambargo sonrası yıllar (2020–2022) grafiğin dört bir yanına dağılmış durumda — bu da istikrarın bozulduğunun görsel kanıtı.' },
+    { i:2, t:'Borçlanma/yükümlülük oranı eğilimi', d:'2015’te %68,0 olan oran, ambargo çizgisiyle kesişmeden 2024’te %57,8’e kadar kesintisiz geriliyor. Yani bilanço temkinliliği ambargoya verilmiş bir tepki değil, on yıllık süreklilik gösteren bağımsız bir eğilim.' },
+    { i:3, t:'2027 hasılat tahmini — Monte Carlo simülasyonu', d:'Ambargo sonrası yıllık büyüme oranının ortalama ve oynaklığından (10.000 senaryo) türetilen dağılım: medyan tahmin ~960 milyar CNY, ama %5–%95 aralığı ~580–1.480 milyar CNY gibi geniş bir bant kaplıyor — artan belirsizliğin sayısal karşılığı.' },
+    { i:4, t:'Segmente göre satış (2024)', d:'ICT Altyapısı ve Tüketici (Consumer) segmentleri toplam satışın büyük çoğunluğunu oluştururken; Dijital Enerji, Bulut Bilişim ve Akıllı Araç Çözümleri çok daha küçük ama var olan paylarıyla, markanın telefon dışına çeşitlenme stratejisini yansıtıyor.' },
+    { i:5, t:'Bölgesel gelir dağılımı (2021–2024)', d:'Çin, dört yılda da en büyük tek pazar olarak öne çıkıyor; EMEA ve Asya Pasifik çok daha küçük paylarla takip ediyor. (Not: bu grafikte “Toplam” satırı temizlenmeden pasta dilimine karışmış — bkz. Kritik Değerlendirme.)' }
+  ];
+  function renderHuaweiCase(){
+    var g=GALLERIES['Huawei-Sales-Analysis']; var el=document.getElementById('cs-huawei-list'); if(!el||!g) return;
+    el.innerHTML = HUAWEI_WALK.map(function(a){
+      return '<div class="cs-item"><figure class="cs-fig"><img src="'+g[a.i].s+'" alt="'+esc(a.t)+'" loading="lazy" data-hi="'+a.i+'"><figcaption>'+esc(g[a.i].c)+'</figcaption></figure>'+
+        '<div class="cs-txt"><h3>'+esc(a.t)+'</h3><p>'+a.d+'</p></div></div>';
+    }).join('');
+    el.querySelectorAll('.cs-fig img').forEach(function(img){ img.addEventListener('click',function(){ openArr(g, parseInt(img.getAttribute('data-hi'),10)); }); });
+  }
+  renderHuaweiCase();
+
   document.getElementById('grid').innerHTML = PROJECTS.map(card).join('');
   document.getElementById('featured-grid').innerHTML = PROJECTS.filter(function(p){return p.featured;}).slice(0,4).map(card).join('');
 
@@ -929,7 +990,7 @@ footer .fin a{ color:var(--muted); }
   burger.addEventListener('click',function(e){ e.stopPropagation(); var o=hnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o?'true':'false'); });
 
   // ---------- router ----------
-  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane','adidas','tnc-autocad','tnc-blender'];
+  var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane','adidas','tnc-autocad','tnc-blender','huawei'];
   function showView(v){
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('active'); });
     var el=document.querySelector('.view[data-view="'+v+'"]'); if(!el){ el=document.querySelector('.view[data-view="home"]'); v='home'; }
