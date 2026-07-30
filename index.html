@@ -160,6 +160,33 @@ header{ position:sticky; top:0; z-index:60; background:color-mix(in srgb, var(--
 .slider .dots i.on{ background:var(--accent); width:16px; border-radius:3px; }
 .slider .count{ position:absolute; bottom:8px; left:10px; z-index:3; font-family:var(--mono); font-size:0.68rem; color:#fff; background:rgba(20,33,44,0.62); padding:2px 7px; border-radius:2px; }
 @media (hover:none){ .slider .nav{ opacity:1; } }
+.feat-slider{ position:relative; border:1px solid var(--line); background:var(--paper-2); overflow:hidden; }
+.fs-track{ display:flex; transition:transform .5s cubic-bezier(.4,0,.2,1); }
+@media (prefers-reduced-motion: reduce){ .fs-track{ transition:none; } }
+.fs-slide{ min-width:100%; display:grid; grid-template-columns:1.15fr 0.85fr; }
+@media (max-width:800px){ .fs-slide{ grid-template-columns:1fr; } }
+.fs-media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--panel); border-right:1px solid var(--line); }
+@media (max-width:800px){ .fs-media{ border-right:none; border-bottom:1px solid var(--line); } }
+.fs-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.fs-media .cover{ position:absolute; inset:0; display:grid; place-items:center; color:var(--accent); background:var(--panel); }
+.fs-media .cover svg{ width:55%; height:55%; }
+.fs-media .cover .cover-tag{ position:absolute; left:12px; bottom:10px; font-family:var(--mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+.fs-body{ padding:clamp(24px,4vw,44px); display:flex; flex-direction:column; justify-content:center; gap:12px; }
+.fs-no{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--faint); }
+.fs-meta{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:8px; }
+.fs-meta .st{ display:inline-flex; align-items:center; gap:5px; }
+.fs-title{ font-family:var(--serif-d); font-weight:600; font-size:clamp(1.5rem,3vw,2.2rem); letter-spacing:-0.01em; margin:0; line-height:1.15; }
+.fs-desc{ color:var(--ink-2); font-size:1.02rem; line-height:1.6; margin:0; max-width:48ch; }
+.fs-links{ font-family:var(--mono); font-size:0.78rem; display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:4px; }
+.fs-links a{ color:var(--accent); display:inline-flex; align-items:center; gap:5px; }
+.fs-links a svg{ width:13px; height:13px; }
+.fs-ctrl{ display:flex; align-items:center; justify-content:space-between; padding:12px clamp(16px,3vw,26px); border-top:1px solid var(--line); }
+.fs-arrows{ display:flex; gap:6px; }
+.fs-nav{ width:32px; height:32px; border:1px solid var(--line-2); background:none; color:var(--ink); font-family:var(--mono); font-size:15px; cursor:pointer; display:grid; place-items:center; transition:all .15s; }
+.fs-nav:hover{ border-color:var(--accent); color:var(--accent); }
+.fs-dots{ display:flex; gap:6px; }
+.fs-dots i{ width:6px; height:6px; border-radius:50%; background:var(--line-2); cursor:pointer; transition:all .2s; }
+.fs-dots i.on{ background:var(--accent); width:18px; border-radius:3px; }
 .proj-body{ padding-top:16px; }
 .proj-top{ display:flex; align-items:baseline; justify-content:space-between; gap:14px; }
 .proj-no{ font-family:var(--serif-d); font-weight:600; font-size:1.15rem; color:var(--faint); font-variant-numeric:tabular-nums; }
@@ -362,7 +389,13 @@ footer .fin a{ color:var(--muted); }
         <div><div class="skey">Seçili Çalışmalar</div><h2 class="disp">Öne çıkan projeler</h2></div>
         <a class="seeall" href="#/projeler/all">Tüm projeler →</a>
       </div>
-      <div class="grid" id="featured-grid"></div>
+      <div class="feat-slider" id="featSlider">
+        <div class="fs-track"></div>
+        <div class="fs-ctrl">
+          <div class="fs-arrows"><button class="fs-nav prev" aria-label="Önceki">‹</button><button class="fs-nav next" aria-label="Sonraki">›</button></div>
+          <div class="fs-dots"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -927,7 +960,45 @@ footer .fin a{ color:var(--muted); }
   renderHuaweiCase();
 
   document.getElementById('grid').innerHTML = PROJECTS.map(card).join('');
-  document.getElementById('featured-grid').innerHTML = PROJECTS.filter(function(p){return p.featured;}).slice(0,4).map(card).join('');
+  // ---------- Home: featured projects slider ----------
+  var FEAT = PROJECTS.filter(function(p){return p.featured;});
+  function fsMedia(p){
+    var g=GALLERIES[p.repo];
+    if(g&&g.length) return '<img src="'+g[0].s+'" alt="'+esc(p.t)+'" loading="lazy">';
+    var c=COVER[p.repo]||{tag:p.langs[0],svg:''};
+    return '<div class="cover"><svg viewBox="0 0 100 100" aria-hidden="true">'+c.svg+'</svg>'+(c.big?'<span class="cover-big">'+c.big+'</span>':'')+'<span class="cover-tag">'+esc(c.tag)+'</span></div>';
+  }
+  function fsSlide(p,i){
+    var st=STATUS[p.status];
+    var demo=p.demo?'<a href="'+p.demo+'" target="_blank" rel="noopener">'+(p.demoLabel||'demo')+' '+extI+'</a>':'';
+    var cs=p.cs?'<a href="#/'+p.cs+'">vaka çalışması →</a>':'';
+    return '<div class="fs-slide"><div class="fs-media">'+fsMedia(p)+'</div>'+
+      '<div class="fs-body"><span class="fs-no">'+('0'+(i+1)).slice(-2)+' / '+('0'+FEAT.length).slice(-2)+'</span>'+
+      '<span class="fs-meta">'+esc(p.langs.join(' · '))+' <span class="st '+st.cls+'"><span class="d"></span>'+st.txt+'</span></span>'+
+      '<h3 class="fs-title">'+esc(p.t)+'</h3><p class="fs-desc">'+esc(p.d)+'</p>'+
+      '<div class="fs-links">'+cs+demo+'<a href="'+GH+p.repo+'" target="_blank" rel="noopener">'+ghI+' kod</a></div></div></div>';
+  }
+  (function(){
+    var wrap=document.getElementById('featSlider'); if(!wrap||!FEAT.length) return;
+    var track=wrap.querySelector('.fs-track');
+    track.innerHTML = FEAT.map(fsSlide).join('');
+    var dotsEl=wrap.querySelector('.fs-dots');
+    dotsEl.innerHTML = FEAT.map(function(_,i){ return '<i data-i="'+i+'" class="'+(i===0?'on':'')+'"></i>'; }).join('');
+    var idx=0, timer=null, hovering=false;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function go(i){
+      idx=(i+FEAT.length)%FEAT.length;
+      track.style.transform='translateX(-'+(idx*100)+'%)';
+      dotsEl.querySelectorAll('i').forEach(function(d,di){ d.classList.toggle('on', di===idx); });
+    }
+    function restart(){ clearInterval(timer); if(!reduceMotion && !hovering) timer=setInterval(function(){ go(idx+1); }, 6000); }
+    wrap.querySelector('.fs-nav.prev').addEventListener('click', function(){ go(idx-1); restart(); });
+    wrap.querySelector('.fs-nav.next').addEventListener('click', function(){ go(idx+1); restart(); });
+    dotsEl.addEventListener('click', function(e){ var t=e.target.closest('i'); if(!t) return; go(parseInt(t.getAttribute('data-i'),10)); restart(); });
+    wrap.addEventListener('mouseenter', function(){ hovering=true; clearInterval(timer); });
+    wrap.addEventListener('mouseleave', function(){ hovering=false; restart(); });
+    restart();
+  })();
 
   // sliders (delegated per instance)
   function slideTo(sl,i){ var g=GALLERIES[sl.getAttribute('data-repo')],n=g.length; i=(i+n)%n; sl.setAttribute('data-i',i);
