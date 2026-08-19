@@ -848,6 +848,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     var rect = canvas.parentElement.getBoundingClientRect();
     w = canvas.width = Math.max(1, rect.width * dpr);
     h = canvas.height = Math.max(1, rect.height * dpr);
+    if(prefersReducedMotion) draw(0);
   }
   window.addEventListener('resize', resize);
   var mouseX = 0.5, mouseY = 0.5;
@@ -1218,7 +1219,10 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
       start:'top 88%',
       once:true,
       onEnter:function(batch){
-        gsap.to(batch, { opacity:1, y:0, duration:0.6, ease:'power2.out', stagger:0.08 });
+        gsap.to(batch, {
+          opacity:1, y:0, duration:0.6, ease:'power2.out', stagger:0.08,
+          onComplete:function(){ gsap.set(batch, { clearProps:'opacity,transform,translate,rotate,scale' }); }
+        });
       }
     });
   }
@@ -1256,7 +1260,10 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         gsap.to(btn, { x: x*0.18, y: y*0.28, duration:0.3, ease:'power2.out' });
       });
       btn.addEventListener('mouseleave', function(){
-        gsap.to(btn, { x:0, y:0, duration:0.4, ease:'elastic.out(1,0.4)' });
+        gsap.to(btn, {
+          x:0, y:0, duration:0.4, ease:'elastic.out(1,0.4)',
+          onComplete:function(){ gsap.set(btn, { clearProps:'transform,translate,x,y' }); }
+        });
       });
     });
   }
