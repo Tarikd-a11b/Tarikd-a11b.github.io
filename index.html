@@ -1185,10 +1185,12 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
   // ---------- router ----------
   var VIEWS=['home','projeler','yetkinlikler','deneyim','hakkimda','iletisim','wage','hastane','adidas','tnc-autocad','tnc-blender','huawei'];
+  var initialView = (function(){ var h=location.hash.replace(/^#\/?/,''); var v=h.split('/')[0]||'home'; return VIEWS.indexOf(v)<0 ? 'home' : v; })();
   function showView(v){
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('active'); });
     var el=document.querySelector('.view[data-view="'+v+'"]'); if(!el){ el=document.querySelector('.view[data-view="home"]'); v='home'; }
     el.classList.add('active'); el.classList.remove('anim'); void el.offsetWidth; el.classList.add('anim');
+    if(v!==initialView) el.querySelectorAll(REVEAL_SELECTOR).forEach(function(r){ r.classList.add('revealed'); });
     if(typeof ScrollTrigger!=='undefined') requestAnimationFrame(function(){ ScrollTrigger.refresh(); });
     // nav active state
     document.querySelectorAll('.hnav > a[data-nav]').forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-nav')===v); });
