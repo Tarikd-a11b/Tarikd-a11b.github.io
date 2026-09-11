@@ -374,6 +374,20 @@ footer .fin a{ color:var(--muted); }
 @media (min-width:900px){ .datacard{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
 .cs-list + .cs-prose{ margin-top:22px; }
 .cs-close p, .cs-intro .box p, .cs-prose p, .cs-txt p{ font-variant-numeric:tabular-nums; }
+
+/* ===== charts grow on hover + about reveal (2026-09-11) ===== */
+@media (hover:hover) and (pointer:fine){
+  [data-view="wage"] .cs-fig, [data-view="adidas"] .cs-fig, [data-view="huawei"] .cs-fig{ position:relative; z-index:1; }
+  [data-view="wage"] .cs-fig:hover, [data-view="adidas"] .cs-fig:hover, [data-view="huawei"] .cs-fig:hover{ z-index:6; }
+  [data-view="wage"] .cs-fig img, [data-view="adidas"] .cs-fig img, [data-view="huawei"] .cs-fig img{ transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; transform-origin:center; }
+  [data-view="wage"] .cs-fig img:hover, [data-view="adidas"] .cs-fig img:hover, [data-view="huawei"] .cs-fig img:hover{ transform:scale(1.18); box-shadow:0 44px 90px -24px rgba(0,0,0,.8); }
+  .slider.fit-contain .slide img, .fst-shot.fit-contain img{ transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+  .proj:hover .slider.fit-contain .slide img{ transform:none; }
+  .proj-media:hover .slider.fit-contain .slide img{ transform:scale(1.07); }
+  .fst-stage:hover .fst-shot.fit-contain.on img{ transform:scale(1.07); }
+}
+.ab-w{ display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.12em; margin-bottom:-.12em; }
+.ab-w > span{ display:inline-block; will-change:transform; }
 </style>
 
 <div class="progress" id="progress" aria-hidden="true"></div>
@@ -1519,10 +1533,34 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     });
   }
 
+  function initAboutReveal(){
+    var sec = document.querySelector('.home-about');
+    if(!sec || prefersReducedMotion) return;
+    var eyebrow = sec.querySelector('.eyebrow');
+    var big = sec.querySelector('.about-grid .big');
+    var rest = sec.querySelectorAll('.about-grid p, .about-grid .more');
+    var text = big.textContent.trim();
+    big.setAttribute('aria-label', text);
+    big.innerHTML = text.split(/\s+/).map(function(w){ return '<span class="ab-w" aria-hidden="true"><span>'+esc(w)+'</span></span>'; }).join(' ');
+    var words = big.querySelectorAll('.ab-w > span');
+    var tl = gsap.timeline({
+      paused:true, defaults:{ ease:'power3.out' },
+      onComplete:function(){
+        gsap.set([eyebrow].concat([].slice.call(rest)), { clearProps:'opacity,transform,translate' });
+        gsap.set(words, { clearProps:'transform,translate' });
+      }
+    });
+    tl.from(eyebrow, { opacity:0, x:-28, duration:.6 })
+      .from(words, { yPercent:115, duration:.9, stagger:.045 }, '-=.3')
+      .from(rest, { opacity:0, y:30, duration:.75, stagger:.14 }, '-=.55');
+    ScrollTrigger.create({ trigger:sec, start:'top 78%', once:true, onEnter:function(){ tl.play(); } });
+  }
+
   window.addEventListener('hashchange',route);
   route();
   if(location.hash===''||location.hash==='#/'||location.hash==='#/home') playHeroIntro();
   initReveal();
+  initAboutReveal();
   initCounters();
   initMagneticButtons();
 </script>
